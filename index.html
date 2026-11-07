@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RHTP Eligibility Check</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* One-task intake screen: address box on top, one large verdict banner below. CommHIT Everywhere Deep Green. */
+  --brand:#0D4F43; --ok:#127A4E; --ok-bg:#E3F4EC; --no:#B42318; --no-bg:#FDECEA; --warn:#8A5A00; --warn-bg:#FFF4D6;
+  --bg:#F4F6F5; --panel:#FFFFFF; --ink:#16231F; --muted:#5B6B66; --line:#D5DDDA;
+  --font-display:"Source Serif 4", Georgia, serif; --font-body:"IBM Plex Sans","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --ok:#3CC48A; --ok-bg:#12342A; --no:#FF7A6E; --no-bg:#3A1714; --warn:#F2C14E; --warn-bg:#3A2E10;
+  --bg:#101716; --panel:#172120; --ink:#E6EEEB; --muted:#9AABA6; --line:#2A3835; color-scheme:dark;}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.45}
+header{background:var(--brand);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+header .wm{font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1.1}
+header .wm small{display:block;font-family:var(--font-body);font-weight:500;font-size:11px;letter-spacing:.6px;text-transform:uppercase;opacity:.85}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--font-display);font-size:24px;margin:0;text-wrap:balance}
+.lead{margin:0;color:var(--muted)}
+form{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
+label{font-weight:600}
+input[type=text]{font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+input[type=text]:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(13,79,67,.2)}
+.hint{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+button{font:inherit;font-weight:600;font-size:17px;border-radius:8px;padding:12px 18px;cursor:pointer;border:1.5px solid var(--brand)}
+button.primary{background:var(--brand);color:#fff;flex:1;min-width:180px}
+button.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+button:focus-visible{outline:3px solid #E0A526;outline-offset:2px}
+button[disabled]{opacity:.6;cursor:wait}
+#result{border-radius:10px;padding:18px;border:2px solid transparent;display:flex;flex-direction:column;gap:8px}
+#result[hidden]{display:none}
+#result.ok{background:var(--ok-bg);border-color:var(--ok)} #result.no{background:var(--no-bg);border-color:var(--no)} #result.warn{background:var(--warn-bg);border-color:var(--warn)} #result.busy{background:var(--panel);border-color:var(--line)}
+.verdict{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1.1}
+.ok .verdict{color:var(--ok)} .no .verdict{color:var(--no)} .warn .verdict{color:var(--warn)} .busy .verdict{color:var(--muted);font-size:20px}
+.icon{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:24px;font-family:var(--font-body)}
+.ok .icon{background:var(--ok)} .no .icon{background:var(--no)} .warn .icon{background:var(--warn)}
+.pathway{font-size:17px;font-weight:600}
+.detail{font-size:14px;color:var(--muted)}
+.record{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.record code{flex:1;min-width:200px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--ink);white-space:normal}
+.record button{font-size:14px;padding:8px 14px}
+footer{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+footer p{margin:0}
+footer a{color:inherit}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <svg width="30" height="30" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15.5" fill="none" stroke="#fff" stroke-width="2"/><path d="M5 17h24M17 3c-5 4.5-5 23.5 0 28M17 3c5 4.5 5 23.5 0 28" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="24.5" cy="9.5" r="3.2" fill="#E0A526"/></svg>
+  <div class="wm">CommHIT Everywhere<small>Rural Health Transformation Program</small></div>
+</header>
+<main>
+  <div>
+    <h1>RHTP Eligibility Check</h1>
+    <p class="lead">Enter the patient's home address to see whether it is in an RHTP rural area.</p>
+  </div>
+  <form id="f" autocomplete="off">
+    <label for="addr">Patient's physical address</label>
+    <input type="text" id="addr" name="addr" placeholder="123 Main St, Belleview, FL 34420" required autofocus inputmode="text" spellcheck="false">
+    <div class="hint">Street, city and ZIP code. Do not enter a name or date of birth.</div>
+    <div class="row">
+      <button type="submit" class="primary" id="go">Check eligibility</button>
+      <button type="button" class="secondary" id="clear">Clear</button>
+    </div>
+  </form>
+  <section id="result" hidden aria-live="polite"></section>
+  <footer>
+    <p><strong>Privacy:</strong> this page stores nothing and sends nothing to CommHIT. When the ZIP code alone can't decide, only the street address is sent to the U.S. Census Bureau's public address lookup to find its census block.</p>
+    <p><strong>Rules:</strong> AHCA RHTP <em>Definition of Rural</em> (March 2026), as applied by CommHIT with AHCA's November 7, 2026 decisions. Sources: FloridaCommerce REDI list (effective March 5, 2026); HRSA FORHP rural data (September 2025); USDA 2020 RUCA codes; 2020 Census. Not an official AHCA determination.</p>
+    <p id="ver">Eligibility data: loading…</p>
+  </footer>
+</main>
+<script>
+(function(){
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const out = $("result"), go = $("go"), addr = $("addr");
+  let D = null;
+  const ready = fetch("eligibility-data.json", {cache:"no-cache"}).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(j => { D = j; $("ver").textContent = "Eligibility data as of " + j.version + "."; })
+    .catch(() => { $("ver").textContent = "Eligibility data could not be loaded. Reload the page."; });
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  function show(kind, verdict, pathway, detail){
+    out.className = kind; out.hidden = false;
+    const icon = kind==="ok" ? "&#10003;" : kind==="no" ? "&#10005;" : kind==="warn" ? "!" : "";
+    let html = `<div class="verdict">${icon?`<span class="icon" aria-hidden="true">${icon}</span>`:""}<span>${esc(verdict)}</span></div>`;
+    if (pathway) html += `<div class="pathway">${esc(pathway)}</div>`;
+    if (detail) html += `<div class="detail">${detail}</div>`;
+    if (kind==="ok" || kind==="no") {
+      const rec = kind==="ok" ? `RHTP Eligible — ${pathway}` : "Not RHTP Eligible";
+      html += `<div class="record"><code id="rec">${esc(rec)}</code><button type="button" class="secondary" id="copy">Copy for chart</button></div>`;
+    }
+    out.innerHTML = html;
+    const c = $("copy");
+    if (c) c.addEventListener("click", async () => {
+      const t = $("rec").textContent;
+      try { await navigator.clipboard.writeText(t); c.textContent = "Copied"; }
+      catch(e){ const r = document.createRange(); r.selectNodeContents($("rec")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); c.textContent = "Selected — press Ctrl+C"; }
+      setTimeout(() => c.textContent = "Copy for chart", 2500);
+    });
+  }
+
+  function geocode(a){
+    return new Promise((resolve, reject) => {
+      const cb = "_rhtp" + Date.now();
+      const s = document.createElement("script");
+      const t = setTimeout(() => { cleanup(); reject(new Error("timeout")); }, 15000);
+      function cleanup(){ clearTimeout(t); delete window[cb]; s.remove(); }
+      window[cb] = d => { cleanup(); resolve(d); };
+      s.onerror = () => { cleanup(); reject(new Error("network")); };
+      s.src = "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?benchmark=Public_AR_Current&vintage=Current_Current"
+            + "&layers=Counties,Census%20Tracts,2020%20Census%20Blocks,2020%20Census%20ZIP%20Code%20Tabulation%20Areas,States"
+            + "&format=jsonp&callback=" + cb + "&address=" + encodeURIComponent(a);
+      document.body.appendChild(s);
+    });
+  }
+
+  function decideBlock(g){
+    const first = k => (g[k] && g[k][0]) || null;
+    const st = first("States"), cty = first("Counties"), tr = first("Census Tracts"), bl = first("2020 Census Blocks"), zc = first("2020 Census ZIP Code Tabulation Areas");
+    if (!st || st.GEOID !== "12") return {ok:false, why:"This address is outside Florida."};
+    const cf = cty && cty.GEOID;
+    if (cf && D.counties[cf]) return {ok:true, path:`Pathways 2 & 3 — REDI rural county (${D.counties[cf]} County)`};
+    const blockId = bl && bl.GEOID, tract = (tr && tr.GEOID) || (blockId && blockId.slice(0,11));
+    if (blockId){ const t = D.blocks[blockId.slice(0,11)]; if (t && t[blockId.slice(11)] !== undefined) return {ok:true, path:"Pathway 3 — " + D.labels[t[blockId.slice(11)]]}; }
+    if (tract && D.hrsaTracts.indexOf(tract) >= 0) return {ok:true, path:"Pathway 4 — HRSA rural census tract"};
+    const zip = zc && (zc.ZCTA5 || zc.BASENAME || (zc.GEOID||"").slice(-5));
+    if (zip && D.zips[zip] && D.zips[zip][0]==="E") return {ok:true, path:D.zips[zip][1]};
+    return {ok:false, why:"This address is outside every RHTP rural area."};
+  }
+
+  async function check(e){
+    e.preventDefault();
+    const a = addr.value.trim();
+    if (!a) { addr.focus(); return; }
+    await ready;
+    if (!D) { show("warn","Can't check right now",null,"The eligibility data didn't load. Reload the page and try again."); return; }
+    if (/\b(p\.?\s*o\.?\s*box|post\s+office\s+box)\b/i.test(a)) { show("warn","Need a physical address",null,"A PO Box can't be placed on the map. Enter the street address where the patient lives."); return; }
+    const zm = a.match(/\b(3[234]\d{3})(?:-\d{4})?\b(?!.*\b3[234]\d{3}\b)/);
+    const z = zm && D.zips[zm[1]];
+    if (z && z[0]==="E") { show("ok","RHTP Eligible", z[1], `Decided by ZIP code ${zm[1]}, which is eligible in full.`); return; }
+    if (z && z[0]==="N") { show("no","Not RHTP Eligible", null, `ZIP code ${zm[1]} is outside every RHTP rural area.`); return; }
+    show("busy","Checking the address…", null, zm ? `ZIP code ${zm[1]} is only partly rural, so the exact location matters.` : "Looking up the address.");
+    go.disabled = true;
+    try {
+      const d = await geocode(a);
+      const m = d && d.result && d.result.addressMatches && d.result.addressMatches[0];
+      if (!m) { show("warn","Address not found",null,"The Census lookup couldn't match this address. Check the spelling and ZIP code, or try the address without a unit number."); return; }
+      const r = decideBlock(m.geographies || {});
+      const where = `Matched address: ${esc(m.matchedAddress)}. Confirm this is the patient's home.`;
+      r.ok ? show("ok","RHTP Eligible", r.path, where) : show("no","Not RHTP Eligible", null, esc(r.why) + " " + where);
+    } catch(err) {
+      show("warn","Can't reach the address lookup",null, zm && z ? "The Census address service didn't respond. This ZIP code is only partly rural, so try again in a minute." : "The Census address service didn't respond. Check your connection and try again.");
+    } finally { go.disabled = false; }
+  }
+  $("f").addEventListener("submit", check);
+  $("clear").addEventListener("click", () => { addr.value = ""; out.hidden = true; out.innerHTML = ""; addr.focus(); });
+})();
+</script>
+</body>
+</html>
