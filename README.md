@@ -1,6 +1,6 @@
-# RHTP Eligibility Check
+# Eligibility Check
 
-A one-page tool for clinical partners to check, at intake, whether a patient's home address is in a Florida Rural Health Transformation Program (RHTP) rural area. It shows a green **RHTP Eligible** or red **Not RHTP Eligible** result with the qualifying pathway, and a line to copy into the chart.
+A one-page tool for clinical partners to check, at intake, whether a patient's home address is in a Florida Rural Health Transformation Program (RHTP) rural area. It shows a green **Eligible** or red **Not Eligible** result with the qualifying pathway, and a line to copy into the chart.
 
 ## How it decides
 1. **ZIP code first.** 235 ZIP codes are eligible in full and 696 are not; those answer instantly with no lookup.
